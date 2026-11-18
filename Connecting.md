@@ -37,7 +37,7 @@ Pin 4 is chassis ground and pin 5 signal ground; use whichever is fitted. If bot
 
 ## Step 1: Check the port with a meter
 
-Do this with **nothing plugged in**.
+Do this with **nothing plugged in**. If you use an OBD breakout board with its own terminator switch, switch it off while you measure, or it adds to the readings.
 
 1. **Is the 12 V permanent?** With the ignition **off**, measure between pin 16 and ground.
    - **About 12 V:** the port is permanently live. The dash would stay on with the car parked and flatten the battery: about 0.2 A at 12 V, or about 5 Ah a day. Unplug it after each drive, or power it from an ignition-switched circuit (see the end of this page).
@@ -46,8 +46,8 @@ Do this with **nothing plugged in**.
 
 | Reading | What it means | Board jumper J5 |
 |---|---|---|
-| About 60 ohms | The bus already has a terminator at each end | Turn the board's resistor **off** |
-| About 120 ohms | One terminator, probably in the ECU | Leave the board's resistor **on**: the dash becomes the bus's second end |
+| About 60 ohms | The bus already has a terminator at each end | Make sure the board's resistor is **off** (J5 on NC) |
+| About 120 ohms | One terminator, probably in the ECU | Turn the board's resistor **on** (J5 on 120R): the dash becomes the bus's second end |
 | Far above 120 ohms, or open | No terminator found | **Stop.** Recheck the pins before going further |
 
 3. **Are the CAN pins right?** With the ignition **on** and the engine off, measure the **voltage** from pin 6 to ground and from pin 14 to ground. Each should read between about 2 and 3 V, CAN-H a little higher than CAN-L. **If either reads near 12 V or 0 V, stop:** that's the wrong pin.
@@ -55,12 +55,16 @@ Do this with **nothing plugged in**.
 ## Step 2: Set the termination jumper
 
 - The CAN termination jumper (**J5**) is a three-pin header marked **CAN 120R NC**, beside the battery LEDs. The RS485 port has one that looks the same beside it: make sure you use the CAN one.
-- Its cap joins the middle pin to one of the outer pins. One way connects a 120 ohm resistor across CAN-H and CAN-L; the other way, or with the cap removed, leaves it out.
-- **Go by the meter, not the labels.** With the board unpowered, measure across the two pins of its CAN connector:
-  - **about 120 ohms:** the resistor is **on**;
-  - **open:** it's **off**.
-- **Waveshare's documentation says the board is delivered with the resistor on.** Check yours with the meter all the same.
-- Set it as the table in step 1 says, then measure again to confirm.
+- Its cap joins the middle pin to one side, as marked:
+  - **120R:** a 120 ohm resistor is connected across CAN-H and CAN-L;
+  - **NC**, or with the cap removed: it's out.
+- **Check which side yours is on.** Waveshare's documentation says the board is delivered on 120R, but the project's board arrived on NC.
+- Set it as the table in step 1 says.
+- **Then check it with the meter.** With the board unpowered and connected to nothing else, measure across the two pins of its CAN connector:
+  - **about 120 ohms:** the resistor is on;
+  - **open:** it's off.
+  - A breakout board or adapter on the same wires with its own terminator adds to the reading, so disconnect it first.
+- **Count every terminator on the bus,** including one on an OBD breakout board if you wire the dash through it.
 - A CAN bus needs exactly two terminators, one at each end. Never three.
 
 ## Step 3: Make the leads
