@@ -1,0 +1,35 @@
+# Publishes the help files to GitHub Pages, with index.json for the dash's HELP screen
+# (Caterham-CAN-Logger-Display #86, ADR 0008), on every push to main. Pages serves
+# them without the per-IP request limits of GitHub's API and raw downloads.
+name: Publish help
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build the site and its index
+        run: python3 .github/scripts/build_site.py _site
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - id: deploy
+        uses: actions/deploy-pages@v4
