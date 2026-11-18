@@ -1,8 +1,3 @@
 # Community Support
-About this device
-
-## Title 2
-More about this device
-
-### Title 3
-Some further information about this device.
+Want to help build this live help guide?
+Contributions can be submitted via the Github repo ctrmint/Caterham-CAN-Logger-Display--Help
