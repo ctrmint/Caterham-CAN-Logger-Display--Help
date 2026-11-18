@@ -114,17 +114,62 @@ Do the stages **in order**, parked, and don't skip one: each checks something th
 - **Keep a record of each stage:** a screenshot of SETUP > CAN, the `can` line, and Easimap's log if it was used. It's your car's data, so keep it private.
 - **To stop:** turn CAN off on SETUP > CAN, or unplug the CAN lead. The dash runs from the power bank, so unplugging disconnects it completely.
 
-### The stages
+### Stage 1: Listen only
 
-| Stage | What to do | What you should see |
-|---|---|---|
-| 1. Listen only | Ignition off: plug in, then turn CAN on (SETUP > CAN). Ignition on, engine off. Then again with Easimap connected through the breakout | **SEARCHING · LISTEN**, then BUS SPEED 500 KBIT/S, the same as Easimap uses. **No TX in the list, ever.** Without Easimap, nothing acknowledges the ECU's frames: it may resend one frame (WAITING · LISTEN) and the bus errors may count, which is expected here. With Easimap connected: **LIVE · LISTEN**, values matching Easimap's, and the bus errors stop rising |
-| 2. Acknowledge | Ignition off: `can ack on`. Ignition on, without Easimap | **LIVE · ACK**: the dash now acknowledges the ECU's frames, so the broadcast flows. Still no TX. The bus errors stop rising |
-| 3. Read requests | Ignition off: `can source poll`. Ignition on, engine off, without Easimap | The bus speed found again **before any TX**. Then **LIVE · POLL**, about 30 replies a second. TX only on **0CBE1101**, each followed by an RX reply. Battery, coolant and air temperature plausible; the throttle follows the pedal. Nothing changes in the car |
-| 4. With Easimap | Start Easimap reading the ECU while the dash polls | **PAUSED**, and the TX stop. Easimap works normally. When Easimap stops, the dash carries on about 3 s later |
-| 5. Ignition off | While polling, turn the ignition off | The TX stop after 20 unanswered requests, and it goes back to **SEARCHING · LISTEN**. The bus errors rise until then. Ignition on: it finds the bus speed, then polls again |
-| 6. Restart | Ignition off: restart the dash (unplug the power bank and plug it back in, or `reboot` over Wi-Fi). Ignition on | The bus speed found before polling, as in stage 3 |
-| 7. Engine running | Parked, in neutral, outdoors | The values, lambda included, compared with Easimap's one after the other: the dash pauses while Easimap reads. Then the same with LOGGING on, and the log read on a computer |
+- **Do:**
+  - with the ignition off, plug in, then turn CAN on (SETUP > CAN);
+  - ignition on, engine off;
+  - then again with **Easimap connected** through the breakout.
+- **You should see:**
+  - **SEARCHING · LISTEN**, then BUS SPEED **500 KBIT/S**, the same as Easimap uses;
+  - **no TX in the message list, ever;**
+  - **without Easimap:** nothing acknowledges the ECU's frames, so it may resend one frame (**WAITING · LISTEN**) and the bus errors may count. That's expected here;
+  - **with Easimap connected:** **LIVE · LISTEN**, values matching Easimap's, and the bus errors stop rising.
+
+### Stage 2: Acknowledge
+
+- **Do:** with the ignition off, send `can ack on`. Then ignition on, without Easimap.
+- **You should see:**
+  - **LIVE · ACK**: the dash now acknowledges the ECU's frames, so the broadcast flows;
+  - still **no TX**;
+  - the bus errors stop rising.
+
+### Stage 3: Read requests
+
+- **Do:** with the ignition off, send `can source poll`. Then ignition on, engine off, without Easimap.
+- **You should see:**
+  - the bus speed found again **before any TX**;
+  - then **LIVE · POLL**, about **30 replies a second**;
+  - TX only on **0CBE1101**, each followed by an RX reply;
+  - battery, coolant and air temperature plausible, and the throttle following the pedal;
+  - nothing changing in the car.
+
+### Stage 4: With Easimap
+
+- **Do:** start Easimap reading the ECU while the dash polls.
+- **You should see:**
+  - **PAUSED**, and the TX stop;
+  - Easimap working normally;
+  - when Easimap stops, the dash carrying on about 3 s later.
+
+### Stage 5: Ignition off
+
+- **Do:** while polling, turn the ignition off. Then on again.
+- **You should see:**
+  - the TX stop after 20 unanswered requests, and **SEARCHING · LISTEN** again. The bus errors rise until then;
+  - with the ignition on, the bus speed found, then polling again.
+
+### Stage 6: Restart
+
+- **Do:** with the ignition off, restart the dash: unplug the power bank and plug it back in, or `reboot` over Wi-Fi. Then ignition on.
+- **You should see:** the bus speed found before polling, as in stage 3.
+
+### Stage 7: Engine running
+
+- **Do:** parked, in neutral, outdoors.
+- **You should see:**
+  - the values, **lambda included**, matching Easimap's. Compare them one after the other: the dash pauses while Easimap reads;
+  - then the same with **LOGGING** on, and the log reads back on a computer.
 
 ### Stop at once if
 
