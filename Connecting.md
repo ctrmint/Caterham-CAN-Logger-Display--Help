@@ -46,21 +46,21 @@ Do this with **nothing plugged in**.
 
 | Reading | What it means | Board jumper J5 |
 |---|---|---|
-| About 60 ohms | The bus already has a terminator at each end | Make sure J5 is on **NC**, so the board's resistor is off |
-| About 120 ohms | One terminator, probably in the ECU | Put J5 on **120R**: the dash becomes the bus's second end |
+| About 60 ohms | The bus already has a terminator at each end | Turn the board's resistor **off** |
+| About 120 ohms | One terminator, probably in the ECU | Leave the board's resistor **on**: the dash becomes the bus's second end |
 | Far above 120 ohms, or open | No terminator found | **Stop.** Recheck the pins before going further |
 
 3. **Are the CAN pins right?** With the ignition **on** and the engine off, measure the **voltage** from pin 6 to ground and from pin 14 to ground. Each should read between about 2 and 3 V, CAN-H a little higher than CAN-L. **If either reads near 12 V or 0 V, stop:** that's the wrong pin.
 
 ## Step 2: Set the termination jumper
 
-- The CAN termination jumper (**J5**) is a three-pin header marked **CAN 120R NC**, beside the battery LEDs. The cap joins the middle pin to one side:
-  - on the **120R** side, a 120 ohm resistor is connected across CAN-H and CAN-L;
-  - on the **NC** side, or with the cap removed, it's out.
-- **Check which side yours is on.** Waveshare's documentation says the board ships on 120R, but the project's board arrived on NC.
-- The RS485 port has a similar 120R/NC jumper. Make sure you move the CAN one.
-- Set it as the table in step 1 says.
-- **Check it:** with the board unpowered, measure across the two pins of its CAN connector. It should read about 120 ohms with J5 on 120R, and open on NC.
+- The CAN termination jumper (**J5**) is a three-pin header marked **CAN 120R NC**, beside the battery LEDs. The RS485 port has one that looks the same beside it: make sure you use the CAN one.
+- Its cap joins the middle pin to one of the outer pins. One way connects a 120 ohm resistor across CAN-H and CAN-L; the other way, or with the cap removed, leaves it out.
+- **Go by the meter, not the labels.** With the board unpowered, measure across the two pins of its CAN connector:
+  - **about 120 ohms:** the resistor is **on**;
+  - **open:** it's **off**.
+- **Waveshare's documentation says the board is delivered with the resistor on.** Check yours with the meter all the same.
+- Set it as the table in step 1 says, then measure again to confirm.
 - A CAN bus needs exactly two terminators, one at each end. Never three.
 
 ## Step 3: Make the leads
