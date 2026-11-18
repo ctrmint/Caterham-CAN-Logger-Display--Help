@@ -46,17 +46,19 @@ Do this with **nothing plugged in**.
 
 | Reading | What it means | Board jumper J5 |
 |---|---|---|
-| About 60 ohms | The bus already has a terminator at each end | Leave J5 **out** |
-| About 120 ohms | One terminator, probably in the ECU | Fit J5 on **COM-B**: the dash becomes the bus's second end |
+| About 60 ohms | The bus already has a terminator at each end | Move J5 to **NC**, turning the board's resistor off |
+| About 120 ohms | One terminator, probably in the ECU | Leave J5 on **120R**: the dash becomes the bus's second end |
 | Far above 120 ohms, or open | No terminator found | **Stop.** Recheck the pins before going further |
 
 3. **Are the CAN pins right?** With the ignition **on** and the engine off, measure the **voltage** from pin 6 to ground and from pin 14 to ground. Each should read between about 2 and 3 V, CAN-H a little higher than CAN-L. **If either reads near 12 V or 0 V, stop:** that's the wrong pin.
 
 ## Step 2: Set the termination jumper
 
-- Jumper **J5** on the board puts a 120 ohm resistor across CAN-H and CAN-L when it's on **COM-B**. In its other position, or removed, the resistor is out.
+- The CAN termination jumper (**J5**) has two positions, marked **120R** and **NC**. On **120R** a 120 ohm resistor is connected across CAN-H and CAN-L; on **NC**, or with the cap removed, it's out.
+- **The board ships with it on 120R,** so the resistor starts out connected.
+- The RS485 port has a similar 120R/NC jumper. Make sure you move the CAN one.
 - Set it as the table in step 1 says.
-- **Check it:** with the board unpowered, measure across the two pins of its CAN connector. It should read about 120 ohms with J5 on COM-B, and open without.
+- **Check it:** with the board unpowered, measure across the two pins of its CAN connector. It should read about 120 ohms with J5 on 120R, and open on NC.
 - A CAN bus needs exactly two terminators, one at each end. Never three.
 
 ## Step 3: Make the leads
