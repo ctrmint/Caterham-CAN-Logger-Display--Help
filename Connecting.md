@@ -2,8 +2,6 @@
 
 How to wire the dash to the 420R's OBD-II diagnostic port: power, ground and the CAN bus.
 
-> **Read this first.** As of November 2026 the dash has not yet been connected to a car. Treat the first connection as a test: follow every step with the car parked, and don't rely on the dash while driving until its values have been checked against the car's gauges or Easimap.
-
 ## What the connection does
 
 - **Four wires** come from the OBD-II port: +12 V, ground, CAN-H and CAN-L.
