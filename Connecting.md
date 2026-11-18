@@ -81,17 +81,24 @@ Do this with **nothing plugged in**. If you use an OBD breakout board with its o
 
 ## Step 4: Get the dash ready (on the bench)
 
-Once CAN is on, the board's USB data lines carry CAN instead, so **the USB console stops working**. Set up the way back in first:
+Once CAN is on, the board's USB data lines carry CAN instead, so **the USB console stops working**. The switch is on **SETUP > CAN** in firmware **0.4 or later**: check BUILD on the MENU, and update first if it's older.
 
-1. **Wi-Fi:** set it up with **WI-FI** on the MENU, on a network the car will have, such as your phone's hotspot.
-2. **The console secret:** set it over USB (`netsecret`). The Wi-Fi console needs it.
-3. **Switch CAN on:** send `can on` over USB. It refuses until the Wi-Fi console is set up. USB disconnects at once: that's expected. The setting is remembered.
-4. **Leave the source on polling** (`can source poll`, the default).
+1. **Recommended: set up the Wi-Fi console first,** so a computer can still reach the dash once CAN is on:
+   - Wi-Fi with **WI-FI** on the MENU, on a network the car will have, such as your phone's hotspot;
+   - the console secret over USB (`netsecret`).
+2. **Switch CAN on:** on **SETUP > CAN**, turn the switch on and press **TURN ON** to confirm.
+   - USB disconnects at once: that's expected.
+   - The setting is remembered, so CAN comes back on at every start.
+   - It's refused while an update is running.
+3. **Or from a computer:** send `can on` over USB. On the console it refuses until the Wi-Fi console is set up.
+4. **Leave the source on polling** (`can source poll`, the default). SETUP > CAN shows it under SOURCE.
 
 ## Step 5: The first connection
 
 1. **Ignition off.** Plug the lead into the OBD port. If the port is permanently live, the dash starts and shows **SEARCHING · LISTEN**. It is only listening: it sends nothing on a silent bus.
 2. **Ignition on, engine off.** Within a few seconds the top row should show **LIVE · POLL**. On the MENU the data source reads POLLING - 500 KBIT/S, with the number of replies a second.
+   - **SETUP > CAN shows more:** the bus speed it found, frames and replies a second, and any bus errors.
+   - **While that screen is open,** it also lists the messages on the bus: the dash's read requests (TX) and the ECU's replies and broadcast (RX).
 3. **Check the values:**
    - battery close to the car's voltage;
    - coolant and air temperature close to the air temperature on a cold engine;
@@ -109,7 +116,7 @@ Once CAN is on, the board's USB data lines carry CAN instead, so **the USB conso
 | PAUSED | Another tool, such as Easimap, is reading the ECU. The dash waits |
 | STARTING | New firmware: CAN starts once it confirms itself, about 20 s after an update |
 | SERVICE BOOT | The screen was touched in the first 3 s after power-up: USB is kept, and CAN stays off until the next start |
-| CAN OFF | CAN is switched off (`can off`) |
+| CAN OFF | CAN is switched off (on SETUP > CAN, or with `can off`) |
 | DEMO | The simulated engine. It stops by itself when CAN is on, unless it was forced on with `dash demo on`; `dash demo auto` sets it back |
 
 ## If something's wrong
@@ -118,7 +125,7 @@ Once CAN is on, the board's USB data lines carry CAN instead, so **the USB conso
 - **WAITING for more than a few seconds:** the ECU isn't answering. Check the termination (step 1 and step 2), and that CAN-H and CAN-L aren't swapped. After 20 unanswered requests the dash goes back to listening.
 - **Values look wrong:** note what the dash and Easimap each show, and report it.
 - **To get USB back:**
-  - send `can off` over the Wi-Fi console: USB returns in about 1 s;
+  - turn CAN off on **SETUP > CAN**, or send `can off` over the Wi-Fi console: USB returns in about 1 s;
   - or touch the screen within 3 s of power-up. That gives a SERVICE BOOT, for that start only.
 
 ## Safety
