@@ -1,4 +1,4 @@
-# Title 1
+# Community Support
 About this device
 
 ## Title 2
