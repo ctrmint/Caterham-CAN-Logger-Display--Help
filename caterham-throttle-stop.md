@@ -1,4 +1,4 @@
-# Setting the throttle stop on a Caterham 420 / 420R
+# Setting the throttle stop on a Caterham
 
 *Duratec 2.0, MBE 9A4 ECU, read with a data logger. Compiled 18 November 2026.*
 
