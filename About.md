@@ -1,6 +1,6 @@
 # Help and guidance for this device
 
-A dashboard and data logger for the **Caterham 420R**, built on a single 7-inch touch screen. The screen is the computer: the same board reads the engine, draws the dashboards and records the data. There is no separate logger or computer in the car.
+A dashboard and data logger for the **Caterham 7**, built on a single 7-inch touch screen. The screen is the computer: the same board reads the engine, draws the dashboards and records the data. There is no separate logger or computer in the car.
 
 ## What it does
 
