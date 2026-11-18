@@ -1,7 +1,5 @@
 # Caterham 420 fuse and relay box layout
 
-*Transcribed from the Caterham7Diaries "Fuse and relay box layout" diagram (the 420 kit layout as supplied by Caterham Cars, October 2018).*
-
 ## Orientation
 
 - **Read the table top to bottom as the box sits in the diagram.** The diagram's caption "Bottom of Fuse box" sits under its last row, so row 1 is the top of the box and row 18 is the bottom.
